@@ -1,5 +1,7 @@
 # CultureInDaHouase - SlackChronicles
 
+Project made at the UOC University - Computer Engineering 
+
 ## Arranque de proyecto en desarrollo
 Ejecutar el comando `ng serve`. Escribir la ruta `http://localhost:4200/` con el puerto indicado en el navegador. La aplicación se recarga cuando se guardan los archivos. 
 
