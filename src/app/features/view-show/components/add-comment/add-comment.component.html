@@ -1,0 +1,39 @@
+<button *ngIf="!isCommentActive" type="submit" class="btn btn-primary mb-3" (click)="isCommentActive = true">Añadir
+  comentario
+</button>
+
+<div [hidden]="!isCommentActive" class="mb-3">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="row">
+      <div class="form-group mb-3">
+        <label>Descripción</label> <span class="text-danger"> *</span>
+
+        <textarea class="form-control mb-2" formControlName="comment"
+                  placeholder="Escribe aquí una descripción del acto"
+                  [ngClass]="{ 'is-invalid': submitted && f['comment'].errors }"></textarea>
+
+        <div *ngIf="submitted && f['comment'].errors" class="invalid-feedback">
+          <div *ngIf="f['comment'].errors['required']">La descripción es requerida</div>
+        </div>
+      </div>
+      <div class="form-group mb-3">
+        <label for="rating" class="form-label">Puntuación<span class="text-danger"> *</span></label>
+        <div class="input-group">
+          <input type="number" formControlName="rating" class="form-control" aria-label="rating">
+        </div>
+
+        <div *ngIf="submitted && f['rating'].errors" class="invalid-feedback">
+          <div *ngIf="f['rating'].errors['required']">La puntuacion es requerida</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 ms-2 container-buttons">
+        <button (click)="isCommentActive = false" type="submit" class="btn btn-primary">Cancelar</button>
+        <button [disabled]="!form.dirty" type="submit" class="btn btn-primary">Guardar</button>
+      </div>
+    </div>
+  </form>
+</div>

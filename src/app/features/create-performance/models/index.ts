@@ -1,0 +1,1 @@
+export { CreatePerformanceCommand } from './create-performance.command';

@@ -1,0 +1,1 @@
+export { SearchShowsService } from './search-shows.service';

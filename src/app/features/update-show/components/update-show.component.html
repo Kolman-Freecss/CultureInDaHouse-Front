@@ -1,0 +1,126 @@
+<div class="mb-3 form-group col-12">
+    <h4 class="mb-3">Acto</h4>
+
+    <select [(ngModel)]="show" class="form-select mb-3" aria-label="Actos" (change)="cambiarShow(show)">
+        <option [ngValue]="null" selected>Seleccionar acto...</option>
+        <option *ngFor="let show of shows" [ngValue]="show.id">{{show.name }} - {{
+            show.description}}</option>
+    </select>
+</div>
+
+<div *ngIf="show != null" class="container-form col-12">
+    <div *ngIf="loading" class="loading-window">
+        <div class="alert alert-info lead text-center">
+            <i class="fa fa-fw fa-spinner fa-pulse" aria-hidden="true"></i>
+            Cargando...
+        </div>
+    </div>
+
+    <h4 class="mb-3">Actualizar acto</h4>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="load">
+        <div class="row">
+            <div class="register-form col-12 col-md-6">
+                <div class="mb-3 form-group">
+                    <label for="name" class="form-label">Categoría</label> <span class="text-danger"> *</span>
+                    <select formControlName="category" class="form-select mb-3" aria-label="Categorías">
+                        <option *ngFor="let category of categories" [ngValue]="category">{{category.name }} - {{
+                            category.description}}</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Nombre</label> <span class="text-danger"> *</span>
+                    <input type="text" formControlName="name" class="form-control"
+                        placeholder="Escribe el nombre del acto"
+                        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" />
+                    <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                        <div *ngIf="f['name'].errors['required']">El nombre es requerido</div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Descripción</label> <span class="text-danger"> *</span>
+
+                    <textarea class="form-control mb-2" formControlName="description"
+                        placeholder="Escribe aquí una descripción del acto"
+                        [ngClass]="{ 'is-invalid': submitted && f['description'].errors }"></textarea>
+
+                    <div *ngIf="submitted && f['description'].errors" class="invalid-feedback">
+                        <div *ngIf="f['description'].errors['required']">La descripción es requerida</div>
+                    </div>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label>Imagen</label> <span class="text-danger"> *</span>
+                    <input type="text" formControlName="image" class="form-control"
+                        [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" placeholder="http://..." />
+
+                    <div class="form-text">URL de una imagen</div>
+                    <div *ngIf="submitted && f['image'].errors" class="invalid-feedback">
+                        <div *ngIf="f['image'].errors['required']">Se requiere indicar la URL de una imágen</div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 mb-3">
+                    <label for="price" class="form-label">Precio</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="price" class="form-control" aria-label="euros">
+                        <span class="input-group-text">€</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 mb-3">
+                    <label for="duration" class="form-label">Duracion</label> <span class="text-danger"> *</span>
+                    <div class="input-group">
+                        <input type="number" formControlName="duration" class="form-control" aria-label="minutos"
+                            [ngClass]="{ 'is-invalid': submitted && f['duration'].errors }">
+                        <span class="input-group-text">minutos</span>
+                        <div *ngIf="submitted && f['duration'].errors" class="invalid-feedback">
+                            <div *ngIf="f['duration'].errors['required']">Se requiere indicar la duración del acto</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 mb-3">
+                    <label for="capacity" class="form-label">Capacidad</label> <span class="text-danger"> *</span>
+                    <div class="input-group">
+                        <input type="number" formControlName="capacity" class="form-control" aria-label="capacidad"
+                            [ngClass]="{ 'is-invalid': submitted && f['capacity'].errors }">
+                        <span class="input-group-text">pases</span>
+                        <div *ngIf="submitted && f['capacity'].errors" class="invalid-feedback">
+                            <div *ngIf="f['capacity'].errors['required']">Se requiere indicar el número máximo de pases
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4 mb-3">
+                    <label for="capacity" class="form-label">Fecha</label> <span class="text-danger"> *</span>
+                    <div class="input-group">
+                        <input type="date" formControlName="onSaleDate" class="form-control" aria-label="on sale date"
+                            [ngClass]="{ 'is-invalid': submitted && f['onSaleDate'].errors }">
+                        <div *ngIf="submitted && f['onSaleDate'].errors" class="invalid-feedback">
+                            <div *ngIf="f['onSaleDate'].errors['required']">Se requiere una fecha de acto
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-6 pt-3">
+                <img [src]="image" class="card-img-top shadow-sm p-3 mb-5 bg-body rounded" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 ms-2 container-buttons">
+                <button type="button" (click)="onReset()" class="btn btn-warning">
+                    Limpiar
+                </button>
+
+                <button [disabled]="!form.dirty" type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </form>
+</div>

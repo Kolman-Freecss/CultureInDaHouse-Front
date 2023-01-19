@@ -1,0 +1,134 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark d-md-none">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">CultureInDaHouse</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a [routerLink]="['/']" [routerLinkActive]="['active']" class="nav-link active" aria-current="page">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/view-show']" [routerLinkActive]="['active']" class="nav-link active"
+            aria-current="page">Ver actos</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/search-shows']" [routerLinkActive]="['active']" class="nav-link active"
+            aria-current="page">Buscar actos</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/search-business']" [routerLinkActive]="['active']" class="nav-link active"
+            aria-current="page">Buscar empresa</a>
+        </li>
+        <li class="nav-item">
+          <a [routerLink]="['/search-category']" [routerLinkActive]="['active']" class="nav-link active"
+            aria-current="page">Buscar categoría</a>
+        </li>        
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Usuario
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a [routerLink]="['/management']" class="dropdown-item">Gestión</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a [routerLink]="['/crear-empresa']" class="dropdown-item">Crear empresa</a></li>
+            <li><a [routerLink]="['/crear-category']" class="dropdown-item">Crear categoría</a></li>
+            <li><a [routerLink]="['/crear-show']" class="dropdown-item">Crear acto</a></li>
+            <li><a [routerLink]="['/crear-performance']" class="dropdown-item">Crear actuación</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a [routerLink]="['/update-show']" class="dropdown-item">Actualizar acto</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="d-none d-md-block d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+      <span class="fs-4">CultureInDaHouse</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a [routerLink]="['/']" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-link text-white" aria-current="page">
+          Inicio
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/view-show']" [routerLinkActive]="['active']" class="nav-link text-white">
+          Ver actos
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/search-shows']" [routerLinkActive]="['active']" class="nav-link text-white">
+          Buscar actos
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/search-business']" [routerLinkActive]="['active']" class="nav-link text-white">
+          Buscar empresa
+        </a>
+      </li>
+      <li>
+        <a [routerLink]="['/search-category']" [routerLinkActive]="['active']" class="nav-link text-white">
+          Buscar categoría
+        </a>
+      </li>
+    </ul>
+    <hr>
+    <div class="dropdown">
+      <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="https://i.pinimg.com/originals/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="" width="32"
+          height="32" class="rounded-circle me-2">
+        <strong>Usuario</strong>
+      </a>
+      <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+        <li>
+          <a [routerLink]="['/management']" class="dropdown-item">Gestión</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a [routerLink]="['/crear-empresa']" class="dropdown-item">Crear empresa</a>
+        </li>
+        <li>
+          <a [routerLink]="['/crear-category']" class="dropdown-item">Crear categoría</a>
+        </li>
+        <li>
+          <a [routerLink]="['/crear-show']" class="dropdown-item">Crear acto</a>
+        </li>
+        <li>
+          <a [routerLink]="['/crear-performance']" class="dropdown-item">Crear actuación</a>
+        </li>
+        <li>
+          <hr class="dropdown-divider">
+        </li>
+        <li>
+          <a [routerLink]="['/update-show']" class="dropdown-item">Actualizar acto</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="envoltura-general">
+    <div class="container contenedor-general">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+</main>

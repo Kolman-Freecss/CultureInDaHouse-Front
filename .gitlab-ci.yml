@@ -1,0 +1,84 @@
+image: node:16.10.0
+
+services:
+  - docker:dind
+
+stages:
+  - install
+  - test
+  - build
+  - deploy
+
+install:
+  stage: install
+  script:
+    - npm install
+  artifacts:
+    expire_in: 1h
+    paths:
+      - node_modules/
+  cache:
+    paths:
+      - node_modules/
+
+
+tests:
+  stage: test
+  variables:
+    CHROME_BIN: google-chrome
+  dependencies:
+    - install
+  before_script:
+    - apt-get update && apt-get install -y apt-transport-https
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - apt-get update && apt-get install -y google-chrome-stable
+  script:
+    - npm run test:ci
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+
+build:
+  stage: build
+  variables:
+    CHROME_BIN: google-chrome
+  dependencies:
+    - install
+  before_script:
+    - apt-get update && apt-get install -y apt-transport-https
+    - wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+    - sh -c 'echo "deb https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+    - apt-get update && apt-get install -y google-chrome-stable
+  script:
+    - npm run test:ci
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+
+build:
+  stage: build
+  image: docker:latest
+  only:
+    - main
+  services:
+    - docker:dind
+  before_script:
+    - echo $CI_REGISTRY_PASSWORD | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+  script:
+    - >-
+      docker build .
+      --target runner
+      --tag $CI_REGISTRY_IMAGE:latest
+      --cache-from $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:latest
+
+deploy:
+  stage: deploy
+  only:
+    - main
+  image: instrumentisto/rsync-ssh
+  needs:
+    - build
+  before_script:
+    - mkdir -p "${HOME}/.ssh"
+    - echo "${SSH_PRIVATE_KEY}" > "${HOME}/.ssh/id_rsa"
+    - chmod 700 "${HOME}/.ssh/id_rsa"
+  script:
+    - ssh -o "StrictHostKeyChecking no" debian@$DEBIAN_KEY "cd /home/debian/app; docker compose pull; docker compose up -d"

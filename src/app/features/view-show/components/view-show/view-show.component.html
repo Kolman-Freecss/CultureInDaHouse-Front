@@ -1,0 +1,43 @@
+<div class="container-form col-12">
+  <div *ngIf="loading" class="loading-window">
+    <div class="alert alert-info lead text-center">
+      <i class="fa fa-fw fa-spinner fa-pulse" aria-hidden="true"></i>
+      Cargando...
+    </div>
+  </div>
+
+  <h4 class="mb-3">Acto</h4>
+
+  <div class="mb-3 form-group col-12">
+    <select [(ngModel)]="show" class="form-select mb-3" aria-label="Actos" (change)="cambiarShow(show)">
+      <option [ngValue]="null" selected>Seleccionar acto...</option>
+      <option *ngFor="let show of shows" [ngValue]="show.id">{{show.name }} - {{
+        show.description}}</option>
+    </select>
+  </div>
+
+  <div *ngIf="show != null && loaded">
+
+    <h4>Fechas de acto</h4>
+    <p *ngIf="startDate != null">
+      La fecha de inicio: <b>{{startDate | date: 'dd-MM-yyyy'}}</b>
+    </p>
+    <p *ngIf="finalDate != null">
+      La fecha fin: <b>{{finalDate | date: 'dd-MM-yyyy'}}</b>
+    </p>
+
+    <p *ngIf="showState != ''">
+      Estado del acto: <b>{{showState}}</b>
+    </p>
+
+    <div *ngIf="category != null">
+      <h4>Datos de categoría</h4>
+      <p>Nombre: <b>{{category.name}}</b></p>
+      <p>Descripción: <b>{{category.description}}</b></p>
+    </div>
+
+    <app-add-comment [show]="show" (newCommentEvent)="newCommentChanged()"></app-add-comment>
+    <br>
+    <app-view-comments [show]="show"></app-view-comments>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<div *ngIf="comments && comments.length > 0" class="row mb-2">
+  <hr class="hr hr-blurry"/>
+
+  <h4>Comentarios</h4>
+  <br>
+  <ul *ngFor="let comment of comments" class="col-md-12 mx-3">
+    <li>{{comment.comment}} - Puntuación: {{comment.rating}}</li>
+  </ul>
+
+  <h4>Puntuación media del acto</h4>
+  <br>
+  <ul class="col-md-12 mx-3">
+    <li>Media: {{getMeanRating() | number : '1.2-2'}}</li>
+  </ul>
+</div>

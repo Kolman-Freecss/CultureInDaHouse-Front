@@ -1,0 +1,43 @@
+<div *ngIf="loading" class="loading-window">
+  <div class="alert alert-info lead text-center">
+    <i class="fa fa-fw fa-spinner fa-pulse" aria-hidden="true"></i>
+    Cargando...
+  </div>
+</div>
+
+<div class="container-form col-12">
+  <h4>Buscar</h4>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mb-3">
+    <div class="row">
+
+      <div class="form-group mb-3 col-12 col-md-4">
+        <label for="name" class="form-label">Nombre</label>
+        <input type="text" formControlName="name" class="form-control" id="name"
+               placeholder="Escribe el nombre de la empresa"/>
+      </div>
+
+      <div class="row-fluid">
+        <button type="submit" class="btn btn-outline-primary col-2">Buscar</button>
+      </div>
+    </div>
+  </form>
+
+  <div *ngIf="business.length === 0 && submitted" class="alert alert-secondary" role="alert">
+    No se han encontrado empresas que cumplan los criterios de búsqueda empleados en el formulario
+  </div>
+
+  <div *ngIf="business.length > 0 && submitted" class="row mb-2">
+    <hr class="hr hr-blurry"/>
+
+    <h4>Empresas</h4>
+
+    <div *ngFor="let bs of business" class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-primary">{{bs.name}}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

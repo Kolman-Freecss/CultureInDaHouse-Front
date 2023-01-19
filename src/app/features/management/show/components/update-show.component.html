@@ -1,0 +1,33 @@
+<div *ngIf="loading" class="loading-window">
+    <div class="alert alert-info lead text-center">
+        <i class="fa fa-fw fa-spinner fa-pulse" aria-hidden="true"></i>
+        Cargando...
+    </div>
+</div>
+
+<div class="container-form col-12">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mb-3">
+        <div class="row">
+            <div class="mb-3 form-group col-12">
+                <label for="name" class="form-label">Actos</label> <span class="text-danger"> *</span>
+                <select formControlName="id" class="form-select mb-3" aria-label="Actos">
+                    <option [ngValue]="null" selected>Seleccionar acto...</option>
+                    <option *ngFor="let show of shows" [ngValue]="show.id">{{show.name }} - {{
+                        show.description}}</option>
+                </select>
+            </div>
+
+            <div class="mb-3 form-group col-4">
+                <label for="status" class="form-label">Estado</label> <span class="text-danger"> *</span>
+                <select formControlName="status" class="form-select mb-3" aria-label="Estados" id="status">
+                    <option [ngValue]="null" selected>Seleccionar estado...</option>
+                    <option *ngFor="let item of statusArray; let i = index;" [ngValue]="item">{{item}}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <button [disabled]="!form.dirty || form.invalid" type="submit" class="btn btn-primary">Cambiar estado</button>
+        </div>
+    </form>
+</div>
